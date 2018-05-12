@@ -76,7 +76,7 @@ Goal(At(C1, JFK) ∧ At(C3, JFK) ∧ At(C2, SFO) ∧ At(C4, SFO))
 
 In this project, I implemented the 3 air-cargo planning logic which moves cargos from airport to airport through the airplane, After that, I found the best search algorithm to resolve the air-cargo problems via several tests with a couple of search algorithms. I used ‘breadth first search’, ‘depth first graph search’ and ‘uniform cost search’ for non-heuristic search and ‘A* planning search’ with ‘ignore precondition’ and ‘level-sum’ heuristic for heuristic search. 
 
-1. Uninformed (Non-heuristic) Planning search result for 3 air-cargo problems. 
+####1. Uninformed (Non-heuristic) Planning search result for 3 air-cargo problems. 
 1) Breadth first search 
 ![Test image](https://github.com/KHKANG36/Planning-Search_Air-Cargo/blob/master/images/Breadth.jpg)
 
