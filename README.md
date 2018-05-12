@@ -2,41 +2,32 @@
 # Implement a Planning Search
 
 ## Synopsis
+ 
+In this project, I implemented algorithms which solve deterministic logistics planning problems for an Air Cargo transport system using a planning search agent. This project is one of the Udacity AI nanodegree program. 
 
-This project includes skeletons for the classes and functions needed to solve deterministic logistics planning problems for an Air Cargo transport system using a planning search agent. 
-With progression search algorithms like those in the navigation problem from lecture, optimal plans for each 
-problem will be computed.  Unlike the navigation problem, there is no simple distance heuristic to aid the agent. 
-Instead, you will implement domain-independent heuristics.
+## Instructions
 
-![Progression air cargo search](images/Progression.PNG)
+You need to configure the AIND environment
+ - Setup the [Anaconda](https://www.continuum.io/downloads) environment.
+ - Setup the AIND environment : Download the `aind-universal.yml` file in this repository. Open a terminal and run `conda env create -f aind-universal.yml` to create the environment.
 
-- Part 1 - Planning problems:
-	- READ: applicable portions of the Russel/Norvig AIMA text
-	- GIVEN: problems defined in classical PDDL (Planning Domain Definition Language)
-	- TODO: Implement the Python methods and functions as marked in `my_air_cargo_problems.py`
-	- TODO: Experiment and document metrics
-- Part 2 - Domain-independent heuristics:
-	- READ: applicable portions of the Russel/Norvig AIMA text
-	- TODO: Implement relaxed problem heuristic in `my_air_cargo_problems.py`
-	- TODO: Implement Planning Graph and automatic heuristic in `my_planning_graph.py`
-	- TODO: Experiment and document metrics
-- Part 3 - Written Analysis
+## Start Guide
 
-## Environment requirements
-- Python 3.4 or higher
-- Starter code includes a copy of [companion code](https://github.com/aimacode) from the Stuart Russel/Norvig AIMA text.  
+### Activate the aind environment (OS X or Unix/Linux)
+    
+    `$ source activate aind`
 
+### Activate the aind environment (Windows)
 
-## Project Details
-### Part 1 - Planning problems
-#### READ: Stuart Russel and Peter Norvig text:
+    `> activate aind`
 
-"Artificial Intelligence: A Modern Approach" 3rd edition chapter 10 *or* 2nd edition Chapter 11 on Planning, available [on the AIMA book site](http://aima.cs.berkeley.edu/2nd-ed/newchap11.pdf) sections: 
+### Run the code & visualization
 
-- *The Planning Problem*
-- *Planning with State-space Search*
+    `(aind)$ python run-search.py -m`
 
-#### GIVEN: classical PDDL problems
+## Project Implementation
+
+### Project Goal : classical PDDL problems
 
 All problems are in the Air Cargo domain.  They have the same action schema defined, but different initial states and goals.
 
@@ -81,97 +72,59 @@ Init(At(C1, SFO) ∧ At(C2, JFK) ∧ At(C3, ATL) ∧ At(C4, ORD)
 Goal(At(C1, JFK) ∧ At(C3, JFK) ∧ At(C2, SFO) ∧ At(C4, SFO))
 ```
 
-#### TODO: Implement methods and functions in `my_air_cargo_problems.py`
-- `AirCargoProblem.get_actions` method including `load_actions` and `unload_actions` sub-functions
-- `AirCargoProblem.actions` method
-- `AirCargoProblem.result` method
-- `air_cargo_p2` function
-- `air_cargo_p3` function
+### Project Implementation Result
 
-#### TODO: Experiment and document metrics for non-heuristic planning solution searches
-* Run uninformed planning searches for `air_cargo_p1`, `air_cargo_p2`, and `air_cargo_p3`; provide metrics on number of node expansions required, number of goal tests, time elapsed, and optimality of solution for each search algorithm. Include the result of at least three of these searches, including breadth-first and depth-first, in your write-up (`breadth_first_search` and `depth_first_graph_search`). 
-* If depth-first takes longer than 10 minutes for Problem 3 on your system, stop the search and provide this information in your report.
-* Use the `run_search` script for your data collection: from the command line type `python run_search.py -h` to learn more.
+In this project, I implemented the 3 air-cargo planning logic which moves cargos from airport to airport through the airplane, After that, I found the best search algorithm to resolve the air-cargo problems via several tests with a couple of search algorithms. I used ‘breadth first search’, ‘depth first graph search’ and ‘uniform cost search’ for non-heuristic search and ‘A* planning search’ with ‘ignore precondition’ and ‘level-sum’ heuristic for heuristic search. 
 
->#### Why are we setting the problems up this way?  
->Progression planning problems can be 
-solved with graph searches such as breadth-first, depth-first, and A*, where the 
-nodes of the graph are "states" and edges are "actions".  A "state" is the logical 
-conjunction of all boolean ground "fluents", or state variables, that are possible 
-for the problem using Propositional Logic. For example, we might have a problem to 
-plan the transport of one cargo, C1, on a
-single available plane, P1, from one airport to another, SFO to JFK.
-![state space](images/statespace.png)
-In this simple example, there are five fluents, or state variables, which means our state 
-space could be as large as ![2to5](images/twotofive.png). Note the following:
->- While the initial state defines every fluent explicitly, in this case mapped to **TTFFF**, the goal may 
-be a set of states.  Any state that is `True` for the fluent `At(C1,JFK)` meets the goal.
->- Even though PDDL uses variable to describe actions as "action schema", these problems
-are not solved with First Order Logic.  They are solved with Propositional logic and must
-therefore be defined with concrete (non-variable) actions
-and literal (non-variable) fluents in state descriptions.
->- The fluents here are mapped to a simple string representing the boolean value of each fluent
-in the system, e.g. **TTFFTT...TTF**.  This will be the state representation in 
-the `AirCargoProblem` class and is compatible with the `Node` and `Problem` 
-classes, and the search methods in the AIMA library.  
+1. Uninformed (Non-heuristic) Planning search result for 3 air-cargo problems. 
+1) Breadth first search 
+![Test image](https://github.com/KHKANG36/Planning-Search_Air-Cargo/blob/master/images/Breadth.jpg)
 
 
-### Part 2 - Domain-independent heuristics
-#### READ: Stuart Russel and Peter Norvig text
-"Artificial Intelligence: A Modern Approach" 3rd edition chapter 10 *or* 2nd edition Chapter 11 on Planning, available [on the AIMA book site](http://aima.cs.berkeley.edu/2nd-ed/newchap11.pdf) section: 
+2) Depth first graph search 
+Metrics	Air Cargo Problem I	Air Cargo Problem II	Air Cargo Problem III
+Path Length
+(Skip detail)	20	619	392
+Time (sec)	0.05	7.63	5.39
+Expansion	21	624	408
+Goal Test	22	625	409
+New Nodes	84	5,602	3,364
 
-- *Planning Graph*
-
-#### TODO: Implement heuristic method in `my_air_cargo_problems.py`
-- `AirCargoProblem.h_ignore_preconditions` method
-
-#### TODO: Implement a Planning Graph with automatic heuristics in `my_planning_graph.py`
-- `PlanningGraph.add_action_level` method
-- `PlanningGraph.add_literal_level` method
-- `PlanningGraph.inconsistent_effects_mutex` method
-- `PlanningGraph.interference_mutex` method
-- `PlanningGraph.competing_needs_mutex` method
-- `PlanningGraph.negation_mutex` method
-- `PlanningGraph.inconsistent_support_mutex` method
-- `PlanningGraph.h_levelsum` method
+3) Uniform cost search 
+Metrics	Air Cargo Problem I	Air Cargo Problem II	Air Cargo Problem III
+Path Length	6	9	12
+Time (sec)	0.14	44.5	209.1
+Expansion	55	4,853	18,223
+Goal Test	57	4,855	18,225
+New Nodes	224	44,041	159,618
 
 
-#### TODO: Experiment and document: metrics of A* searches with these heuristics
-* Run A* planning searches using the heuristics you have implemented on `air_cargo_p1`, `air_cargo_p2` and `air_cargo_p3`. Provide metrics on number of node expansions required, number of goal tests, time elapsed, and optimality of solution for each search algorithm and include the results in your report. 
-* Use the `run_search` script for this purpose: from the command line type `python run_search.py -h` to learn more.
+2. A* (Heuristic) planning search result for 3 air-cargo problems. 
+1) A* search 
+Metrics	Air Cargo Problem I	Air Cargo Problem II	Air Cargo Problem III
+Path Length	6	9	12
+Time (sec)	0.14	44.3	198.9
+Expansion	55	4,853	18,223
+Goal Test	57	4,855	18,225
+New Nodes	224	44,041	159,618
 
->#### Why a Planning Graph?
->The planning graph is somewhat complex, but is useful in planning because it is a polynomial-size approximation of the exponential tree that represents all possible paths. The planning graph can be used to provide automated admissible heuristics for any domain.  It can also be used as the first step in implementing GRAPHPLAN, a direct planning algorithm that you may wish to learn more about on your own (but we will not address it here).
+2) A* search with ignore precondition heuristic
+Metrics	Air Cargo Problem I	Air Cargo Problem II	Air Cargo Problem III
+Path Length	6	9	12
+Time (sec)	0.1	12.8	5.39
+Expansion	41	1,445	408
+Goal Test	43	1,447	409
+New Nodes	170	13,254	3,364
 
->*Planning Graph example from the AIMA book*
->![Planning Graph](images/eatcake-graphplan2.png)
+3) A* search with level-sum heuristic
+Metrics	Air Cargo Problem I	Air Cargo Problem II	Air Cargo Problem III
+Path Length	6	9	12
+Time (sec)	1	173.6	755.5
+Expansion	11	86	314
+Goal Test	13	88	316
+New Nodes	50	841	2,894
 
-### Part 3: Written Analysis
-#### TODO: Include the following in your written analysis.  
-- Provide an optimal plan for Problems 1, 2, and 3.
-- Compare and contrast non-heuristic search result metrics (optimality, time elapsed, number of node expansions) for Problems 1,2, and 3. Include breadth-first, depth-first, and at least one other uninformed non-heuristic search in your comparison; Your third choice of non-heuristic search may be skipped for Problem 3 if it takes longer than 10 minutes to run, but a note in this case should be included.
-- Compare and contrast heuristic search result metrics using A* with the "ignore preconditions" and "level-sum" heuristics for Problems 1, 2, and 3.
-- What was the best heuristic used in these problems?  Was it better than non-heuristic search planning methods for all problems?  Why or why not?
-- Provide tables or other visual aids as needed for clarity in your discussion.
-
-## Examples and Testing:
-- The planning problem for the "Have Cake and Eat it Too" problem in the book has been
-implemented in the `example_have_cake` module as an example.
-- The `tests` directory includes `unittest` test cases to evaluate your implementations. All tests should pass before you submit your project for review. From the AIND-Planning directory command line:
-    - `python -m unittest tests.test_my_air_cargo_problems`
-    - `python -m unittest tests.test_my_planning_graph`
-    - You can run all the test cases with additional context by running `python -m unittest -v`
-- The `run_search` script is provided for gathering metrics for various search methods on any or all of the problems and should be used for this purpose.
-
-## Submission
-Before submitting your solution to a reviewer, you are required to submit your project to Udacity's Project Assistant, which will provide some initial feedback.  
-
-The setup is simple.  If you have not installed the client tool already, then you may do so with the command `pip install udacity-pa`.  
-
-To submit your code to the project assistant, run `udacity submit` from within the top-level directory of this project.  You will be prompted for a username and password.  If you login using google or facebook, visit [this link](https://project-assistant.udacity.com/auth_tokens/jwt_login) for alternate login instructions.
-
-This process will create a zipfile in your top-level directory named cargo_planning-<id>.zip.  This is the file that you should submit to the Udacity reviews system.
-
-## Improving Execution Time
-
-The exercises in this project can take a *long* time to run (from several seconds to a several hours) depending on the heuristics and search algorithms you choose, as well as the efficiency of your own code.  (You may want to stop and profile your code if runtimes stretch past a few minutes.) One option to improve execution time is to try installing and using [pypy3](http://pypy.org/download.html) -- a python JIT, which can accelerate execution time substantially.  Using pypy is *not* required (and thus not officially supported) -- an efficient solution to this project runs in very reasonable time on modest hardware -- but working with pypy may allow students to explore more sophisticated problems than the examples included in the project.
+3. Analysis of the result
+First of all, in terms of performance on non-heuristic search, breadth fist search and uniform cost search (a sort of improved search algorithm of breadth first search) find the optimized path length. Otherwise, depth first graph search shows better result on searching time, the number of expansion, goal test, new nodes. This is basically caused by the chracteristic of each search algorithm. Breadth first search algorithm explores the entire frontiers of all subtrees, and the search time and expansion is pretty huge. However, it is able to find the optimized(shortest) path. Depth first graph search is able to arrive the goal faster with small number of node explansion, however the path should not be optimal. In this tests, uniform cost search algorithm did not show the better performance than that of breadth first search even though it requires the more memory and calculation. 
+Secondly, in terms of performance on A* heuristic search, all of three was able to optimized the path. A* search with ignore precondition showed the best searching time. Otherwise, A* search with level-sum provides the smallest expansion, goal test and new nodes. Because A* search with level-sum continuously provides information on the expected level-sum toward the goal, it can minimize the expansion and goal test. 
+If we discuss the best solution for these problems, obviously, the heuristic search planning methods are better than non-heuristic search planning methods. In my opinion, A* search with ignore precodition heuristic is the best heuristic search because I think that optimized path length and the search time is the most important factor for these problems. Even though A* seach with level-sum heuristic shows the best performance in expansion and goal test, the search time increased dramatically when the problem is getting complex.  
